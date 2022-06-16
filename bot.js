@@ -13,7 +13,9 @@ client.on("messageCreate", async message => {
         'feur', 'feuse', 'fage'
     ]
 
-    if (list.includes(message.content.toLowerCase().trim())) {
+    const regexList = list.map(elt => new RegExp(elt.split("").join('\\s*')))
+
+    if (regexList.some(rx => rx.test(message.content.toLowerCase().trim()))) {
         message.delete();
     }
 })
