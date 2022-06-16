@@ -51,10 +51,15 @@ client.on("messageCreate", async message => {
 
     const regexList = list.map(elt => new RegExp(`^${elt.split("").join('+\\s*')}+$`))
     if (regexList.some(rx => rx.test(message.content.toLowerCase().trim()))) {
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setImage(`https://pbs.twimg.com/media/E2LKKL7XMAIvAX1.jpg`)
-        return await message.reply({embeds: [embed]});
+        if (message.content.toLowerCase().trim() == "feur") {
+            if (!Math.floor(Math.random() * 10)) {
+                const embed = new MessageEmbed()
+                    .setColor("RANDOM")
+                    .setImage(`https://pbs.twimg.com/media/E2LKKL7XMAIvAX1.jpg`)
+                return await message.reply({embeds: [embed]});
+            }
+        }
+        return message.delete();
     }
 })
 
