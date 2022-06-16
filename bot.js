@@ -11,6 +11,10 @@ const client = new Client({
 client.on("messageCreate", async message => {
     if (message.author.bot) return;
 
+    if (message.content.startsWith('^')) {
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+    }
+
     if (message.content.startsWith('^help')) {
         return await message.reply("^help, ^report, ^remove, ^list")
     }
