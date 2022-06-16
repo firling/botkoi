@@ -13,7 +13,7 @@ client.on("messageCreate", async message => {
         'feur', 'feuse', 'fage'
     ]
 
-    if (list.includes(message.content)) {
+    if (list.includes(message.content.toLowerCase().trim())) {
         message.delete();
     }
 })
