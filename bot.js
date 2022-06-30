@@ -1,4 +1,4 @@
-const { Client, Intents, MessageAttachment, MessageEmbed  } = require("discord.js");
+const { Client, Intents, MessageAttachment, MessageEmbed, Permissions  } = require("discord.js");
 require("dotenv").config({path: __dirname + "/.env"});
 var list = require('./file/list.json')
 const fs = require('fs')
@@ -12,7 +12,7 @@ client.on("messageCreate", async message => {
     if (message.author.bot) return;
 
     if (message.content.startsWith('^')) {
-        if (!message.member.hasPermission("ADMINISTRATOR")) return;
+        if (!message.member.permissions.has([Permissions.FLAGS.MANAGE_MESSAGES])) return;
     }
 
     if (message.content.startsWith('^help')) {
