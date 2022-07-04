@@ -8,7 +8,44 @@ const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
 
+function removeFirstWord(str) {
+    const indexOfSpace = str.indexOf(' ');
+
+    if (indexOfSpace === -1) {
+    return '';
+    }
+
+    return str.substring(indexOfSpace + 1);
+}
+
+function removeLastWord(str) {
+    const lastIndexOfSpace = str.lastIndexOf(' ');
+  
+    if (lastIndexOfSpace === -1) {
+      return str;
+    }
+  
+    return str.substring(0, lastIndexOfSpace);
+  }
+
+function checkFeur(str){
+    var strr = str
+
+    while(str != ''){
+        while(strr != '')
+        if(/f[^a-zA-Z]*e[^a-zA-Z]*u[^a-zA-Z]*r[^a-zA-Z]*$/.test(str)){
+            return true
+        }
+        else{
+            removeLastWord(str)
+        }
+        strr = removeFirstWord(str)
+    }
+    return false
+}
+
 client.on("messageCreate", async message => {
+    console.log(message.content)
     if (message.author.bot) return;
 
     if (message.content.startsWith('^')) {
@@ -51,7 +88,7 @@ client.on("messageCreate", async message => {
 
     const regexList = list.map(elt => new RegExp(`^${elt.split("").join('+\\s*')}+$`))
     if (regexList.some(rx => rx.test(message.content.toLowerCase().trim()))) {
-        if (message.content.toLowerCase().trim() == "feur") {
+        if (checkFeur(message.content.toLowerCase().trim())) {
             if (!Math.floor(Math.random() * 10)) {
                 const embed = new MessageEmbed()
                     .setColor("RANDOM")
